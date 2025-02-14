@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link rel="stylesheet" href="love.css" />
+  <title>Document</title>
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+    integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer"
+  />
+</head>
+<body>
+  <div class="wrapper">
+    <!-- KHU VỰC GIAO DIỆN CHÍNH -->
+    <div class="formInput">
+      <div class="boxHands">
+        <div class="handsCat">
+          <img src="../image/handsCat.png" alt="" />
+        </div>
+        <h1>Happy 1-month anniversary</h1>
+      </div>
+
+      <div class="boxSlider">
+        <div class="listSlider">
+          <div class="slider">
+            <img src="../image/slowly1.png" alt="" />
+          </div>
+          <div class="slider">
+            <img src="../image/slowly2.png" alt="" />
+          </div>
+          <div class="slider">
+            <img src="../image/slowly3.png" alt="" />
+          </div>
+          <div class="slider">
+            <img src="../image/slowly4.png" alt="" />
+          </div>
+          <div class="slider">
+            <img src="../image/slowly5.png" alt="" />
+          </div>
+          <div class="slider">
+            <img src="../image/slowly6.png" alt="" />
+          </div>
+          <div class="slider">
+            <img src="../image/slowly7.png" alt="" />
+          </div>
+        </div>
+        <div class="left">
+          <i class="fa-solid fa-chevron-left"></i>
+        </div>
+        <div class="right">
+          <i class="fa-solid fa-chevron-right"></i>
+        </div>
+      </div>
+
+      <div class="boxHandsInput">
+        <div class="handsCatImgInput">
+          <img src="../image/handsCat.png" alt="" />
+        </div>
+        <input type="text" id="inputField" placeholder="Nhập tên..." readonly />
+      </div>
+
+      <div class="buttonLove">
+        <div class="cricleBtn"></div>
+        <div class="button"></div>
+      </div>
+    </div>
+
+    <div class="boxLine">
+      <div class="boxCar">
+        <img src="../image/car.gif" alt="" />
+      </div>
+      <div class="boxHeart">
+        <div class="heart1"></div>
+        <div class="heart2"></div>
+        <div class="heart3"></div>
+        <div class="heart4"></div>
+        <div class="heart5"></div>
+        <div class="heart6"></div>
+      </div>
+      <div class="ground-line">
+        <div>
+          <span class="line1"></span>
+          <span class="line2"></span>
+          <span class="line3"></span>
+          <span class="line4"></span>
+          <span class="line5"></span>
+          <span class="line1"></span>
+          <span class="line2"></span>
+          <span class="line3"></span>
+          <span class="line4"></span>
+          <span class="line5"></span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- LOADING -->
+  <div class="loadingLove">
+    <div class="rhombus">
+      <div class="circle1"></div>
+      <div class="circle2"></div>
+    </div>
+  </div>
+
+  <!-- FORM NHẬN THƯ (HIỆN RA KHI CLICK VÀO LÁ THƯ) -->
+  <div class="wrapperLetterForm">
+    <div class="boxLetter">
+      <i class="fa-solid fa-xmark"></i>
+      <div class="formLetter">
+        <div class="heartLetter">
+          <div class="heartLetterItem"></div>
+        </div>
+        <div class="heartLetter">
+          <div class="heartLetterItem"></div>
+        </div>
+        
+        <div class="wrapperLetter">
+          <div class="giftbox">
+            <div class="img">
+              <img src="../image/giftbox.png" alt="" />
+            </div>
+          </div>
+          <div class="textLetter">
+            <h2></h2>
+            <p class="contentLetter"></p>
+            <div class="heartAnimation">
+              <img src="../image/heartAnimation.gif" alt="" />
+            </div>
+          </div>
+          <div class="mewmew1">
+            <img src="../image/mewmew.gif" alt="" />
+          </div>
+          <div class="mewmew2">
+            <img src="../image/mewmew.gif" alt="" />
+          </div>
+        </div>
+      </div>
+      <div class="before"></div>
+    </div>
+  </div>
+
+  <!-- MODAL XEM ẢNH -->
+  <div id="imageModal" class="modal">
+    <span class="close">&times;</span>
+    <img class="modal-content" id="modalImg" />
+    
+    <!-- Nút chuyển slide bên trái -->
+    <div class="left" onclick="prevSlide(); event.stopPropagation();">
+      <i class="fa-solid fa-chevron-left"></i>
+    </div>
+    
+    <!-- Nút chuyển slide bên phải -->
+    <div class="right" onclick="nextSlide(); event.stopPropagation();">
+      <i class="fa-solid fa-chevron-right"></i>
+    </div>
+  </div>
+
+  <!-- CUSTOM ALERT MODAL (thay thế cho alert) -->
+  <div id="customAlert" class="custom-alert">
+    <div class="custom-alert-content">
+      <span class="close-alert">&times;</span>
+      <p>Nguyễn Doãn Huy Thông Báo:</p>
+      <br>
+      <p>Click vào thư chuẩn bị rơi xuống nha!</p>
+      <button id="btnCustomAlertOK">OK</button>
+    </div>
+  </div>
+
+  <!-- SCRIPT -->
+  <script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
+  <script>
+    $(window).on("load", function () {
+      $("body").removeClass("preloading");
+      $(".loadingLove").delay(1000).fadeOut("fast");
+
+      // Hiệu ứng trái tim di chuột
+      function getHeart(e) {
+        let ele = document.createElement("div");
+        ele.className = "element";
+        document.querySelector("body").prepend(ele);
+        ele.style.left = e.clientX + "px";
+        ele.style.top = e.clientY - 10 + "px";
+        setTimeout(() => {
+          let text = document.querySelectorAll(".element")[0],
+            directionX = Math.random() < 0.5 ? -1 : 1,
+            directionY = Math.random() < 0.5 ? -1 : 1;
+
+          text.style.left =
+            parseInt(text.style.left) - directionX * (Math.random() * 100) + "px";
+          text.style.top =
+            parseInt(text.style.top) - directionY * (Math.random() * 100) + "px";
+          text.style.opacity = 0;
+          text.style.transform = "scale(0.4)";
+          text.innerHTML = "💗";
+          text.style.zIndex = "100";
+
+          setTimeout(() => {
+            ele.remove();
+          }, 1000);
+        }, 10);
+      }
+      document.onmousemove = function (e) {
+        getHeart(e);
+      };
+      document.onclick = function (e) {
+        let ele = document.createElement("div");
+        ele.className = "heartRain";
+        document.querySelector("body").prepend(ele);
+        ele.style.left = e.clientX - 10 + "px";
+        ele.style.top = e.clientY - 10 + "px";
+        ele.innerHTML = "💗";
+        setTimeout(() => {
+          ele.style.top = "calc(85% - 25px)";
+        }, 100);
+        setTimeout(() => {
+          ele.style.opacity = 0;
+        }, 3000);
+        setTimeout(() => {
+          ele.remove();
+        }, 4000);
+      };
+      document.onmousedown = (e) => {
+        getHeart(e);
+      };
+
+      // Gõ tên
+      const inputField = document.getElementById("inputField");
+      const textToType = "NGUYỄN THỊ HIỀN MAI"; // thay đổi tên
+      const typingSpeed = 100; // ms per character
+
+      let charIndex = 0;
+      function typeText() {
+        if (charIndex < textToType.length) {
+          inputField.value += textToType.charAt(charIndex);
+          charIndex++;
+          setTimeout(typeText, typingSpeed);
+        }
+        if (inputField.value.length == textToType.length) {
+          setTimeout(() => {
+            document.querySelector(".buttonLove").style.transform = "translateY(0%)";
+            document.querySelector(".cricleBtn").style.transform = "scale(0.1)";
+          }, 1000);
+          setTimeout(() => {
+            document.querySelector(".cricleBtn").style.transform = "scale(1)";
+            document.querySelector(".cricleBtn").innerHTML = "💗";
+          }, 2000);
+          setTimeout(() => {
+            document.querySelector(".buttonLove").style.width = "144px";
+            document.querySelector(".button").style.transform = "translateX(25px)";
+          }, 2500);
+          setTimeout(() => {
+            document.querySelector(".button").style.width = "calc(100% - 25px)";
+            document.querySelector(".button").style.height = "10px";
+          }, 3000);
+          setTimeout(() => {
+            document.querySelector(".button").style.height = "30px";
+          }, 3500);
+          setTimeout(() => {
+            let buttonNode = document.querySelector(".button");
+            buttonNode.innerHTML = "Nhận thư";
+            buttonNode.style.fontSize = "18px";
+          }, 4000);
+        }
+      }
+      // Bắt đầu gõ sau 11.5s
+      setTimeout(() => {
+        typeText();
+      }, 11500);
+    });
+
+    // Gõ tiêu đề thư
+    let indexText = 0;
+    let textLetter = document.querySelector(".textLetter h2");
+    const textLetterH2 = "Gửi Mai!";
+    let timoutTextLetter;
+
+    function textCharLetter() {
+      if (indexText < textLetterH2.length) {
+        textLetter.textContent += textLetterH2[indexText];
+        indexText++;
+        setTimeout(textCharLetter, 100);
+      } else {
+        clearInterval(timoutTextLetter);
+        setTimeout(() => {
+          funcTimeoutLetterContent();
+        }, 500);
+      }
+    }
+    function funcTimeoutLetter() {
+      indexText = 0; // Reset
+      textLetter.textContent = "";
+      clearInterval(timoutTextLetter);
+      timoutTextLetter = setInterval(textCharLetter, 200);
+    }
+
+    // Gõ nội dung thư
+    let indexTextContent = 0;
+    let textLetterContent = document.querySelector(".contentLetter");
+    const textLetterP =
+      "vậy là đã được 1 tháng kể từ ngày đầu tiên tụi mình trao đổi thư qua slowly nhỉ, thời gian trôi qua nhanh thật đó. Tớ rất biết ơn vì những điều cậu chia sẻ, những lời khuyên và sự tin tưởng mà cậu trao đến tớ. Mong rằng tụi mình có thể gửi thư thêm một thời gian nữa, không ai biết mãi mãi là bao lâu, nhưng dù có phải dừng lại thì hãy biến nó thành 1 cái kết có hậu nha! Chúc Mai có một ngày cuối tuần vui vẻ nhé 🍀🍀🍀!";
+    let timoutTextLetterContent;
+    function textCharLetterContent() {
+      if (indexTextContent < textLetterP.length) {
+        textLetterContent.textContent += textLetterP[indexTextContent];
+        indexTextContent++;
+        // Tăng delay từ 100ms lên 200ms
+        setTimeout(textCharLetterContent, 5000);
+      } else {
+        clearInterval(timoutTextLetterContent);
+      }
+    }
+    function funcTimeoutLetterContent() {
+      indexTextContent = 0;
+      textLetterContent.textContent = "";
+      clearInterval(timoutTextLetterContent);
+      timoutTextLetterContent = setInterval(textCharLetterContent, 200);
+    }
+
+    // Slider ảnh nhỏ
+    document.querySelector(".boxSlider .right").addEventListener("click", function () {
+      var slider = document.querySelectorAll(".slider");
+      document.querySelector(".listSlider").appendChild(slider[0]);
+    });
+    document.querySelector(".boxSlider .left").addEventListener("click", function () {
+      var slider = document.querySelectorAll(".slider");
+      document.querySelector(".listSlider").prepend(slider[slider.length - 1]);
+    });
+
+    // ===== THAY THẾ ALERT BẰNG CUSTOM ALERT =====
+    // Khi click vào .buttonLove => hiện custom alert thay vì alert()
+    document.querySelector(".buttonLove").addEventListener("click", function () {
+      document.getElementById("customAlert").style.display = "block";
+    });
+
+    // Nút X trên custom alert
+    document.querySelector(".close-alert").addEventListener("click", function() {
+      document.getElementById("customAlert").style.display = "none";
+    });
+
+    // Nút OK trên custom alert
+    document.getElementById("btnCustomAlertOK").addEventListener("click", function() {
+      document.getElementById("customAlert").style.display = "none";
+      // Bắt đầu thả thư
+      startLetterFalling();
+    });
+
+    // Hàm thả thư (tách riêng)
+    function startLetterFalling() {
+      let timeout = setInterval(() => {
+        var letters = document.createElement("div");
+        letters.className = "letters";
+        letters.innerHTML = '<img src="../image/letters.png" alt="">';
+        document.querySelector("body").prepend(letters);
+        let left = Math.floor(Math.random() * 100);
+        let rotate = Math.floor(Math.random() * 360);
+        letters.style.left = left + "%";
+        letters.style.top = "-10%";
+        letters.style.transform = `rotate(${rotate}deg)`;
+        setTimeout(() => {
+          letters.style.top = "100%";
+        }, 1000);
+        setTimeout(() => {
+          letters.remove();
+        }, 11000);
+
+        // Khi click vào lá thư
+        document.querySelectorAll(".letters").forEach((item) => {
+          item.addEventListener("click", function () {
+            clearInterval(timeout);
+            $(".wrapperLetterForm").fadeIn();
+            // Gọi hàm gõ tiêu đề thư
+            funcTimeoutLetter();
+          });
+        });
+      }, 500);
+    }
+
+    // Modal xem ảnh lớn
+    $(document).ready(function () {
+      $(".slider img").click(function () {
+        let src = $(this).attr("src");
+        $("#modalImg").attr("src", src);
+        $("#imageModal").fadeIn();
+      });
+
+      // Chỉ đóng modal khi click nút close hoặc nền
+      $(".close").click(function () {
+        $("#imageModal").fadeOut();
+      });
+      $("#imageModal").click(function (e) {
+        if (e.target === this) {
+          $(this).fadeOut();
+        }
+      });
+
+      // Danh sách ảnh
+      const images = [
+        "../image/slowly1.png",
+        "../image/slowly2.png",
+        "../image/slowly3.png",
+        "../image/slowly4.png",
+        "../image/slowly5.png",
+        "../image/slowly6.png",
+        "../image/slowly7.png",
+      ];
+      let currentIndex = 0;
+      const modalImg = document.getElementById("modalImg");
+
+      function showImage(index) {
+        if (index < 0) {
+          index = images.length - 1;
+        } else if (index >= images.length) {
+          index = 0;
+        }
+        currentIndex = index;
+        modalImg.src = images[currentIndex];
+      }
+
+      window.prevSlide = function () {
+        showImage(currentIndex - 1);
+      };
+      window.nextSlide = function () {
+        showImage(currentIndex + 1);
+      };
+    });
+
+    // Nút đóng form thư
+    document.querySelector(".fa-xmark").addEventListener("click", function () {
+      indexTextContent = 0;
+      textLetterContent.textContent = "";
+      clearInterval(timoutTextLetterContent);
+      $(".wrapperLetterForm").fadeOut();
+    });
+  </script>
+</body>
+</html>
